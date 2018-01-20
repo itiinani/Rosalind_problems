@@ -1,0 +1,41 @@
+import java.util.Map;
+import java.util.TreeMap;
+
+public class LastToFirstMapping {
+
+	public static void main(String[] args) {
+		System.out.println(lastToFirst("TGGGCTAGACGGACGGAGTATACATGTGAATGCACGTGCGCATTACTTCTGTTCAAGGGTCGGGCTAAGCCGCATTTTCGGCTATGCCAAGAATTCCTACGAAGGCCCTGGGGGTTTAACTACGATCCATAGTCTTCAACTACATTCAATGGGTCAATCGTTCGTACTGAAACAAAGCTTACACATTGCTTGTAGTAGGCACTGAGTCGCTGACAGCATTTTCGCAATACCGTCGCTCGCGTTCATATGTTATTAATACTTCATATCGAGAGTGATAGTAATACGGGTCGATCCGATAGCAAAGGCGAACAGCCATCTCGGAGTGCCGCAGACAAAAGTCATATCTGTTGCTGGGTCAATTACGTAGGCTCAGGTGGGTGAAGCATGAGAAACAAGGCATGGATTCTCTCGCCCGAAGAAGGGTTAGGTGTAGTGCGCTGCCACTCCCCAGGTGACGATTCACGTGCAAACTAAGGACCTGTACAGAGGGATACTAACGACCCAAGGGGATGCGACCTACGCCCGCCTGCTGCCTCCGTTCTGTTCCAGTCACGCCTGATCGCACACCGAGGTTTAGGGGGCATACAATGTTCGACGTGTTATCTTAAATGTTCAGCCAACGAGATGCGGCGGCTGCGTCGCGAAGAAGACGATTGGGCGCTTTGAGAACGTCCCAGTTGGACGATGCCCTTCGGTCCTCTAATGTAAAAATAATCCGGGCGCCTAGCCCCTAAGTGGACCAGCGCGCCTGTGCACCATACACATGTATAGGTTAGCAATGACCGATGTCGCCTGTACCAATGTAACATTACTAAAATGTCCACAGAGGCAGAACTCTCCACTCCTTTTGCTGCTTAGGAGCGGATACAAGGTCTCACTCTGGCATGTGT$",471));
+	}
+	public static int lastToFirst(String s,int i){
+		TreeMap<Character,Integer> occurrenceMap = new TreeMap<>();
+		int []rank = new int[s.length()];
+		for(int j=0;j<s.length();j++){
+			char key = s.charAt(j);
+		  if(occurrenceMap.containsKey(key)){
+			  int count = occurrenceMap.get(key);
+			  count = count+1;
+			  occurrenceMap.put(key,count);	
+			  rank[j]=count;
+		  }
+		  else{
+			  occurrenceMap.put(key,0);
+		  }
+		}
+		char c = s.charAt(i);
+		int position = 0;
+		for(Map.Entry<Character,Integer> entry : occurrenceMap.entrySet()) {
+			  char key = entry.getKey();
+			  if(key!=c){
+				  position = position + entry.getValue()+1;
+			  }
+			  else{
+				  position = position + rank[i];
+				  break;
+			  }
+			  System.out.println(key + " => " + entry.getValue());
+			}
+		
+		return position;		
+	}
+
+}
